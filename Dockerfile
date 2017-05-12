@@ -70,6 +70,10 @@ RUN mkdir -p /opt/julia-0.6.0-dev && \
     echo "export PATH" >> /etc/environment && \
     echo "source /etc/environment" >> /root/.bashrc
 
+RUN ln -s /opt/julia-0.6/bin/julia /usr/local/bin/julia-0.6 && \
+    ln -s /opt/julia-0.5/bin/julia /usr/local/bin/julia-0.5 && \
+    ln -s /opt/julia-0.6/bin/julia /usr/local/bin/julia-0.4
+
 ENTRYPOINT /bin/bash
 
 WORKDIR /data

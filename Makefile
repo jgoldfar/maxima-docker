@@ -1,7 +1,7 @@
-NS = blang
-REPO = latex 
-NAME = latex 
-VOLUMES = -v $PWD:/data
+NS = jgoldfar
+REPO = juliatex
+NAME = juliatex 
+VOLUMES = -v $(PWD):/data
 
 .PHONY: build shell run start stop stoprm rm
 
