@@ -1,9 +1,9 @@
-Latex docker container
+Latex & Julia docker container
 =====
 
-This container helps compiling latex sources without the need to install all latex packages on your system.
+This container helps with compilation of latex sources without the need to install all latex packages on your system.
 
-Check out my [blog post](https://www.blang.io/posts/2015-04_docker-tooling-latex/).
+This repository is forked from blang's repository in order to add support for Julia and other packages needed for a CI setup.
 
 Setup
 -----
@@ -12,13 +12,9 @@ First, add your local user to docker group:
 sudo usermod -aG docker YOURUSERNAME
 ```
 
-Pull image ([from Hub](https://registry.hub.docker.com/u/blang/latex)):
+build:
 ```bash
-docker pull blang/latex
-```
-or build:
-```bash
-docker build -t blang/latex .
+docker build -t jgoldfar/juliatex .
 
 ```
 
@@ -26,11 +22,7 @@ Usage:
 -----
 
 ```bash
-cd example
-
-# Double to process refs
-../dockercmd.sh pdflatex example.tex
-../dockercmd.sh pdflatex example.tex
+dockercmd.sh (to open a shell)
 
 # Or better in one go (does not start container twice)
 ../dockercmd.sh /bin/sh -c "pdflatex example.tex && pdflatex example.tex"
@@ -44,6 +36,4 @@ Why should I use this container?
 -----
 
 - Easy setup
-- Preserves UID and GID of local user
-- Use container like local command
 - `texlive-full` covers most of the available packages
