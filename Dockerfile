@@ -32,6 +32,3 @@ RUN apt-get -q -y update && \
     apt-get clean
 
 ENTRYPOINT /bin/bash
-
-WORKDIR /data
-VOLUME ["/data"]
