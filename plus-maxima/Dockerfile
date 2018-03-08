@@ -1,36 +1,20 @@
-FROM jgoldfar/latex-docker-plus-julia-reqs
+FROM jgoldfar/latex-docker:plus-julia-reqs-latest
 
 # Make sure we don't get notifications we can't answer during building.
 env DEBIAN_FRONTEND noninteractive
 
 LABEL maintainer "Jonathan Goldfarb <jgoldfar@my.fit.edu>"
-
-# Install Julia 0.5
-## Set environment variables to change "old" version of Julia
-ENV JuliaOldVerShort 0.5
-ENV JuliaOldVer 0.5.2
-ENV JuliaOldVerString julia-${JuliaOldVer}
-ENV JuliaOldPath /opt/${JuliaOldVerString}
-RUN mkdir -p ${JuliaOldPath} && \
-    curl -s -L https://julialang-s3.julialang.org/bin/linux/x64/${JuliaOldVerShort}/${JuliaOldVerString}-linux-x86_64.tar.gz | \
-    tar -C ${JuliaOldPath} -x -z --strip-components=1 -f - && \
-    ln -fs ${JuliaOldPath} /opt/julia-${JuliaOldVerShort} && \
-    ln -s /opt/julia-${JuliaOldVerShort}/bin/julia /usr/local/bin/julia-${JuliaOldVerShort}
-
-# Install Julia 0.6
-## Set environment variables to change "current" version of Julia
-ENV JuliaVerShort 0.6
-ENV JuliaVer 0.6.2
-ENV JuliaVerString julia-${JuliaVer}
-ENV JuliaPath /opt/${JuliaVerString}
-RUN mkdir -p ${JuliaPath} && \
-    curl -s -L https://julialang-s3.julialang.org/bin/linux/x64/${JuliaVerShort}/${JuliaVerString}-linux-x86_64.tar.gz | \
-    tar -C ${JuliaPath} -x -z --strip-components=1 -f - && \
-    ln -fs ${JuliaPath} /opt/julia-${JuliaVerShort} && \
-    ln -s /opt/julia-${JuliaVerShort}/bin/julia /usr/local/bin/julia-${JuliaVerShort}
-
+ENV MaximaPath /opt/maxima
+RUN apt-get -q -y update && \
+    apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" && \
+    apt-get -q -y install sbcl && \
+    mkdir -p ${MaximaPath} && \
+    git clone git://git.code.sf.net/p/maxima/code ${MaximaPath} && \
+    ${MaximaPath}/configure --enable-sbcl --prefix=${MaximaPath}/usr --enable-quiet-build && \
+    make install
+    
 # Set up path
-ENV PATH="/usr/local/bin:${PATH}"
+ENV PATH="${MaximaPath}/usr/bin:${PATH}"
 
 # TODO: Add source build of Julia? Separate container?
 
