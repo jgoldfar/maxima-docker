@@ -1,4 +1,4 @@
-FROM jgoldfar/latex-docker:plus-maxima-latest
+FROM jgoldfar/latex-docker:plus-maxima-v0.1.0
 
 # Make sure we don't get notifications we can't answer during building.
 env DEBIAN_FRONTEND noninteractive
