@@ -8,22 +8,27 @@ LABEL maintainer "Jonathan Goldfarb <jgoldfar@my.fit.edu>"
 RUN apt-get -q -y update && \
     apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" && \
     apt-get -q -y install \
+    build-essential \
+    chktex \
+    cmake \
+    curl \
+    file \
+    gfortran \
+    git \
+    pgf \
+    python \
     latexmk \
-    texlive-full \
-    man-db \
     libc6 \
     libc6-dev \
-    build-essential \
-    wget curl \
-    file \
-    vim \
-    unzip \
+    make \
+    man-db \
+    mercurial \
     pkg-config \
-    git mercurial \
-    cmake make \
-    gfortran \
-    python \
-    ssh && \
+    ssh \
+    texlive-full \
+    unzip \
+    vim \
+    wget && \
     apt-get clean
 
 ENTRYPOINT /bin/bash
