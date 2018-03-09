@@ -11,7 +11,7 @@ RUN apt-get -q -y update && \
     mkdir -p ${MaximaPath} && \
     git clone https://github.com/jgoldfar/maxima-clone.git ${MaximaPath} && \
     cd ${MaximaPath} && \
-    autoconf --verbose && \
+    ./bootstrap && \
     ./configure --enable-sbcl --prefix=${MaximaPath}/usr --enable-quiet-build && \
     make install
     
