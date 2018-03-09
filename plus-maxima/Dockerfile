@@ -7,11 +7,12 @@ LABEL maintainer "Jonathan Goldfarb <jgoldfar@my.fit.edu>"
 ENV MaximaPath /opt/maxima
 RUN apt-get -q -y update && \
     apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" && \
-    apt-get -q -y install sbcl && \
+    apt-get -q -y install sbcl autoconf autotools-dev && \
     mkdir -p ${MaximaPath} && \
     git clone https://github.com/jgoldfar/maxima-clone.git ${MaximaPath} && \
-    cd ${MaximaPath} && ls -lR && \
-    ${MaximaPath}/configure --enable-sbcl --prefix=${MaximaPath}/usr --enable-quiet-build && \
+    cd ${MaximaPath} && \
+    autoconf --verbose && \
+    ./configure --enable-sbcl --prefix=${MaximaPath}/usr --enable-quiet-build && \
     make install
     
 # Set up path
