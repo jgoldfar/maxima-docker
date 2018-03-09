@@ -1,4 +1,4 @@
-FROM jgoldfar/latex-docker:plus-julia-reqs-v0.1.0
+FROM jgoldfar/latex-docker:plus-julia-reqs-0.1.0
 
 # Make sure we don't get notifications we can't answer during building.
 env DEBIAN_FRONTEND noninteractive

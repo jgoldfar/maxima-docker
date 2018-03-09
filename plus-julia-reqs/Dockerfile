@@ -1,4 +1,4 @@
-FROM jgoldfar/latex-docker:default-v0.1.0
+FROM jgoldfar/latex-docker:default-0.1.0
 
 # Make sure we don't get notifications we can't answer during building.
 env DEBIAN_FRONTEND noninteractive
