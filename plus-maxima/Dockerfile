@@ -10,6 +10,7 @@ RUN apt-get -q -y update && \
     apt-get -q -y install sbcl && \
     mkdir -p ${MaximaPath} && \
     git clone https://github.com/jgoldfar/maxima-clone.git ${MaximaPath} && \
+    cd ${MaximaPath} && ls -lR && \
     ${MaximaPath}/configure --enable-sbcl --prefix=${MaximaPath}/usr --enable-quiet-build && \
     make install
     
