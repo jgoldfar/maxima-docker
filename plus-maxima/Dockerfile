@@ -9,7 +9,7 @@ RUN apt-get -q -y update && \
     apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" && \
     apt-get -q -y install sbcl && \
     mkdir -p ${MaximaPath} && \
-    git clone git://git.code.sf.net/p/maxima/code ${MaximaPath} && \
+    git clone https://github.com/jgoldfar/maxima-clone.git ${MaximaPath} && \
     ${MaximaPath}/configure --enable-sbcl --prefix=${MaximaPath}/usr --enable-quiet-build && \
     make install
     
