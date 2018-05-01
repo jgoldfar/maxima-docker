@@ -18,7 +18,8 @@ RUN mkdir -p ${JuliaPath} && \
     curl -s -L https://julialangnightlies-s3.julialang.org/bin/linux/x64/${JuliaVerString}-linux64.tar.gz | \
     tar -C ${JuliaPath} -x -z --strip-components=1 -f - && \
     ln -fs ${JuliaPath} /opt/julia-${JuliaVerShort} && \
-    ln -s /opt/julia-${JuliaVerShort}/bin/julia /usr/local/bin/julia-${JuliaVerShort}
+    ln -s /opt/julia-${JuliaVerShort}/bin/julia /usr/local/bin/julia-${JuliaVerShort} && \
+    ln -s /opt/julia-${JuliaVerShort}/bin/julia /usr/local/bin/julia
 
 # Set up path
 ENV PATH="/usr/local/bin:${PATH}"
