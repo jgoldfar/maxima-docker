@@ -28,7 +28,7 @@ RUN mkdir -p ${JuliaPath} && \
     tar -C ${JuliaPath} -x -z --strip-components=1 -f - && \
     ln -fs ${JuliaPath} /opt/julia-${JuliaVerShort} && \
     ln -s /opt/julia-${JuliaVerShort}/bin/julia /usr/local/bin/julia-${JuliaVerShort} && \
-    ln -s /opt/julia-${JulieVerShort}/bin/julia /usr/local/bin/julia
+    ln -s /opt/julia-${JuliaVerShort}/bin/julia /usr/local/bin/julia
 
 
 # Set up path
