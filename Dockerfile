@@ -7,7 +7,8 @@ LABEL maintainer "Jonathan Goldfarb <jgoldfar@my.fit.edu>"
 ENV MaximaPath /opt/maxima
 RUN apt-get -q -y update && \
     apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" && \
-    apt-get -q -y install sbcl autoconf autotools-dev && \
+    apt-get -q --no-install-recommends -y install sbcl autoconf automake && \
+    rm -rf /var/lib/apt/lists/* && \
     mkdir -p ${MaximaPath} && \
     git clone https://github.com/jgoldfar/maxima-clone.git ${MaximaPath} && \
     cd ${MaximaPath} && \
