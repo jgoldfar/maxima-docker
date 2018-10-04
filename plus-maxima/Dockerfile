@@ -1,4 +1,4 @@
-FROM jgoldfar/latex-docker:plus-julia-reqs-0.1.1
+FROM jgoldfar/latex-docker:default-0.1.0
 
 # Make sure we don't get notifications we can't answer during building.
 env DEBIAN_FRONTEND noninteractive
@@ -17,7 +17,5 @@ RUN apt-get -q -y update && \
     
 # Set up path
 ENV PATH="${MaximaPath}/usr/bin:${PATH}"
-
-# TODO: Add source build of Julia? Separate container?
 
 ENTRYPOINT /bin/bash

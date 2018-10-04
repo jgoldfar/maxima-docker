@@ -1,11 +1,11 @@
-Latex & Julia docker container
+Latex & Maxima docker container
 =====
 
-[![Docker Build Status](https://img.shields.io/docker/build/jgoldfar/latex-docker.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/jgoldfar/latex-docker.svg)](https://hub.docker.com/r/jgoldfar/latex-docker/)
+[![Docker Build Status](https://img.shields.io/docker/build/jgoldfar/maxima-docker.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/jgoldfar/maxima-docker.svg)](https://hub.docker.com/r/jgoldfar/latex-docker/)
 
 This container helps with compilation of latex sources without the need to install all latex packages on your system.
 
-This repository is forked from blang's repository in order to add other packages needed for a CI setup.
+This repository is forked from blang's repository in order to add other packages needed to run Maxima scripts for a CI setup.
 
 Setup
 -----
