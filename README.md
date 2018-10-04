@@ -16,7 +16,7 @@ sudo usermod -aG docker YOURUSERNAME
 
 build:
 ```bash
-docker build -t jgoldfar/juliatex .
+docker build -t jgoldfar/latex-docker .
 
 ```
 
@@ -24,19 +24,32 @@ Usage:
 -----
 
 ```bash
-dockercmd.sh (to open a shell)
+docker run --rm -i --user="$(id -u):$(id -g)" --net=none -v "$(pwd)":/data jgoldfar/latex-docker
 
 # Or better in one go (does not start container twice)
-../dockercmd.sh /bin/sh -c "pdflatex example.tex && pdflatex example.tex"
+docker run --rm -i --user="$(id -u):$(id -g)" --net=none -v "$(pwd)":/data jgoldfar/latex-docker /bin/sh -c "pdflatex example.tex && pdflatex example.tex"
 
 # View
 ./example.pdf
 ```
-Use `dockercmd.sh` to execute any command you like inside the container. `WORKDIRs` match, mounted to `/data` inside container.
+`WORKDIRs` match, mounted to `/data` inside container.
 
 Why should I use this container?
+
 -----
 
 - Easy setup
 - `texlive-full` covers most of the available packages
 - `chktex` and `pgf` packages are explicitly installed to ensure they are always available.
+
+## Container Descriptions
+
+* default is the original build, containing just TeXLive
+
+* plus-julia-release includes everything in default, plus Julia v0.6 and v0.7
+
+* plus-julia-dev includes everything in default, plus Julia 0.7 and Julia 1.0 (useful for porting packages)
+
+* plus-julia-dev includes everything in default, plus a version of Julia built from source
+
+* plus-julia-and-maxima includes the released version of Julia (v0.7) as well as everything included in [maxima-docker](https://github.com/jgoldfar/maxima-docker), that is, Maxima built against SBCL.
