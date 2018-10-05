@@ -1,13 +1,13 @@
 FROM ubuntu:16.04
 
 # Make sure we don't get notifications we can't answer during building.
-env DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND noninteractive
 
-LABEL maintainer "Jonathan Goldfarb <jgoldfar@my.fit.edu>"
+LABEL maintainer="Jonathan Goldfarb <jgoldfar@my.fit.edu>"
 
 RUN apt-get -q -y update && \
     apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" && \
-    apt-get -q -y install \
+    apt-get -q -y --no-install-recommends install \
     build-essential \
     chktex \
     cmake \
@@ -29,6 +29,7 @@ RUN apt-get -q -y update && \
     unzip \
     vim \
     wget && \
-    apt-get clean
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT /bin/bash
