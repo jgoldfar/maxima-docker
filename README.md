@@ -1,4 +1,4 @@
-Latex & Julia docker container
+Latex (TeXLive) docker container
 =====
 
 [![Docker Build Status](https://img.shields.io/docker/build/jgoldfar/latex-docker.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/jgoldfar/latex-docker.svg)](https://hub.docker.com/r/jgoldfar/latex-docker/)
@@ -45,11 +45,3 @@ Why should I use this container?
 ## Container Descriptions
 
 * default is the original build, containing just TeXLive
-
-* plus-julia-release includes everything in default, plus Julia v0.6 and v0.7
-
-* plus-julia-dev includes everything in default, plus Julia 0.7 and Julia 1.0 (useful for porting packages)
-
-* plus-julia-dev includes everything in default, plus a version of Julia built from source
-
-* plus-julia-and-maxima includes the released version of Julia (v0.7) as well as everything included in [maxima-docker](https://github.com/jgoldfar/maxima-docker), that is, Maxima built against SBCL.
