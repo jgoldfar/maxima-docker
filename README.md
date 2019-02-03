@@ -11,12 +11,14 @@ This repository is forked from blang's repository in order to add other packages
 Setup
 -----
 First, add your local user to docker group:
-```bash
+
+```shell
 sudo usermod -aG docker YOURUSERNAME
 ```
 
 build:
-```bash
+
+```shell
 docker build -t jgoldfar/latex-docker .
 
 ```
@@ -24,7 +26,7 @@ docker build -t jgoldfar/latex-docker .
 Usage:
 -----
 
-```bash
+```shell
 docker run --rm -i --user="$(id -u):$(id -g)" --net=none -v "$(pwd)":/data jgoldfar/latex-docker
 
 # Or better in one go (does not start container twice)
@@ -33,6 +35,7 @@ docker run --rm -i --user="$(id -u):$(id -g)" --net=none -v "$(pwd)":/data jgold
 # View
 ./example.pdf
 ```
+
 `WORKDIRs` match, mounted to `/data` inside container.
 
 Why should I use this container?
@@ -40,9 +43,12 @@ Why should I use this container?
 -----
 
 - Easy setup
-- `texlive-full` covers most of the available packages
 - `chktex` and `pgf` packages are explicitly installed to ensure they are always available.
 
 ## Container Descriptions
 
-* default is the original build, containing just TeXLive
+* `debian-` is the "legacy" image containing the complete TeXLive installation on top of Debian Stretch
+
+* `debian-minimal` is a minimal image containing just TeX & LaTeX
+
+* `debian-minplus` includes some additional packages on top of `debian-minimal`.

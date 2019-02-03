@@ -1,35 +1,20 @@
-FROM ubuntu:16.04
-
-# Make sure we don't get notifications we can't answer during building.
-ENV DEBIAN_FRONTEND noninteractive
+FROM alpine:3.9
 
 LABEL maintainer="Jonathan Goldfarb <jgoldfar@my.fit.edu>"
 
-RUN apt-get -q -y update && \
-    apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" && \
-    apt-get -q -y --no-install-recommends install \
-    build-essential \
-    chktex \
-    cmake \
-    curl \
-    file \
-    gfortran \
-    git \
-    pgf \
-    python \
-    latexmk \
-    libc6 \
-    libc6-dev \
-    make \
-    man-db \
-    mercurial \
-    pkg-config \
-    ssh \
-    texlive-full \
-    unzip \
-    vim \
-    wget && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache \
+      curl \
+      git \
+      mercurial \
+      make \
+      vim \
+      tar \
+      perl
+
+COPY minimal.profile .
+
+RUN curl -L http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz -o install-tl-unx.tar.gz && \
+    tar xzf install-tl-unx.tar.gz && \
+    ./install-tl-*/install-tl -profile ./minimal.profile
 
 ENTRYPOINT /bin/bash
