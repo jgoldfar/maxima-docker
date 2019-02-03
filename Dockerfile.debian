@@ -1,0 +1,24 @@
+FROM debian:stretch
+
+# Make sure we don't get notifications we can't answer during building.
+ENV DEBIAN_FRONTEND noninteractive
+
+LABEL maintainer="Jonathan Goldfarb <jgoldfar@my.fit.edu>"
+
+RUN apt-get -q -y update && \
+    apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" && \
+    apt-get -q -y --no-install-recommends install \
+    chktex \
+    curl \
+    pgf \
+    python \
+    latexmk \
+    make \
+    git \
+    mercurial \
+    texlive-full \
+    vim && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT /bin/bash
