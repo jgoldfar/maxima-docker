@@ -9,7 +9,6 @@ TEXMFLOCAL /usr/local/texlive/texmf-local
 TEXMFSYSCONFIG /usr/local/texlive/2018/texmf-config
 TEXMFSYSVAR /usr/local/texlive/2018/texmf-var
 TEXMFVAR ~/Library/texlive/2018/texmf-var
-binary_x86_64-darwin 1
 collection-basic 1
 collection-binextra 1
 collection-fontutils 1
@@ -33,4 +32,3 @@ tlpdbopt_post_code 1
 tlpdbopt_sys_bin /usr/local/bin
 tlpdbopt_sys_info /usr/local/share/info
 tlpdbopt_sys_man /usr/local/share/man
-tlpdbopt_w32_multi_user 1
