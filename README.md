@@ -4,7 +4,9 @@ Maxima-on-alpine docker container
 [![Docker Build Status](https://img.shields.io/docker/build/jgoldfar/maxima-docker.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/jgoldfar/maxima-docker.svg)](https://hub.docker.com/r/jgoldfar/maxima-docker/)
 [![Build Status](https://travis-ci.org/jgoldfar/maxima-docker.svg?branch=master)](https://travis-ci.org/jgoldfar/maxima-docker)
 
-This container helps to run Maxima scripts without the need to install its dependencies on your system.
+This container helps with compilation of latex sources without the need to install all latex packages on your system; [maxima](http://maxima.sourceforge.net/) is a computer algebra system that plays (relatively) nicely with TeX.
+
+This repository is forked from blang's repository in order to add other packages needed to run Maxima scripts for a CI setup.
 
 Setup
 -----
