@@ -8,17 +8,22 @@ LABEL maintainer="Jonathan Goldfarb <jgoldfar@my.fit.edu>"
 RUN apt-get -q -y update && \
     apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" && \
     apt-get -q -y --no-install-recommends install \
-    chktex \
     curl \
-    pgf \
-    python \
-    latexmk \
     make \
     git \
-    mercurial \
-    texlive-full \
-    vim && \
+    vim \
+    sbcl \
+    autoconf \
+    automake && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT /bin/bash
+ENV MaximaPath=/opt/maxima
+ENV PATH=${MaximaPath}/usr/bin:${PATH}
+
+RUN mkdir -p ${MaximaPath} && \
+    git clone https://git.code.sf.net/p/maxima/code ${MaximaPath} && \
+    cd ${MaximaPath} && \
+    ./bootstrap && \
+    ./configure --enable-sbcl --prefix=${MaximaPath}/usr --enable-quiet-build && \
+    make install
