@@ -12,6 +12,9 @@ RUN apt-get -q -y update && \
     make \
     git \
     vim \
+    ca-certificates \
+    texinfo \
+    python \
     sbcl \
     autoconf \
     automake && \
@@ -19,11 +22,11 @@ RUN apt-get -q -y update && \
     rm -rf /var/lib/apt/lists/*
 
 ENV MaximaPath=/opt/maxima
-ENV PATH=${MaximaPath}/usr/bin:${PATH}
 
 RUN mkdir -p ${MaximaPath} && \
     git clone https://git.code.sf.net/p/maxima/code ${MaximaPath} && \
     cd ${MaximaPath} && \
     ./bootstrap && \
-    ./configure --enable-sbcl --prefix=${MaximaPath}/usr --enable-quiet-build && \
-    make install
+    ./configure --enable-sbcl --prefix=/usr/local --enable-quiet-build && \
+    make install && \
+    rm -rf ${MaximaPath}
