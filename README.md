@@ -42,3 +42,5 @@ Why should I use this container?
 * `debian` contains a Maxima installation on top of Debian Stretch
 
 * `alpine` contains a Maxima installation on top of Alpine Linux v3.9
+
+* `alpine-latex` adds a minimal LaTeX installation to `alpine`. The TeX installation scheme is minimal.

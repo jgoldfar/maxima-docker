@@ -1,6 +1,7 @@
 language: generic
 
-sudo: required
+services:
+  - docker
 
 jobs:
   include:
