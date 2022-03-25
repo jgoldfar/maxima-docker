@@ -1,12 +1,12 @@
-FROM debian:stretch
+FROM debian:bullseye-slim
 
 # Make sure we don't get notifications we can't answer during building.
 ENV DEBIAN_FRONTEND noninteractive
 
-LABEL maintainer="Jonathan Goldfarb <jgoldfar@my.fit.edu>"
+LABEL maintainer="Jonathan Goldfarb <jgoldfar@gmail.com>"
 
 RUN apt-get -q -y update && \
-    apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" && \
+    apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" && \
     apt-get -q -y --no-install-recommends install \
     curl \
     make \
@@ -14,12 +14,10 @@ RUN apt-get -q -y update && \
     vim \
     ca-certificates \
     texinfo \
-    python \
+    python3 \
     sbcl \
     autoconf \
-    automake && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    automake
 
 ENV MaximaPath=/opt/maxima
 
@@ -29,4 +27,8 @@ RUN mkdir -p ${MaximaPath} && \
     ./bootstrap && \
     ./configure --enable-sbcl --prefix=/usr/local --enable-quiet-build && \
     make install && \
-    rm -rf ${MaximaPath}
+    rm -rf ${MaximaPath} && \
+    apt-get -q -y remove python3 autoconf automake make vim git curl && \
+    apt-get -q -y clean && \
+    apt-get -q -y autoclean && \
+    rm -rf /var/lib/apt/lists/* /var/log/dpkg.log

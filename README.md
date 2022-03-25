@@ -1,8 +1,9 @@
 Maxima-on-alpine docker container
 =====
 
-[![Docker Build Status](https://img.shields.io/docker/build/jgoldfar/maxima-docker.svg) ![Docker Pulls](https://img.shields.io/docker/pulls/jgoldfar/maxima-docker.svg)](https://hub.docker.com/r/jgoldfar/maxima-docker/)
-[![Build Status](https://travis-ci.org/jgoldfar/maxima-docker.svg?branch=master)](https://travis-ci.org/jgoldfar/maxima-docker)
+![Docker Pulls](https://img.shields.io/docker/pulls/jgoldfar/maxima-docker.svg)](https://hub.docker.com/r/jgoldfar/maxima-docker/)
+
+[![Build and push docker images](https://github.com/jgoldfar/maxima-docker/actions/workflows/build.yml/badge.svg)](https://github.com/jgoldfar/maxima-docker/actions/workflows/build.yml)
 
 This container helps with compilation of latex sources without the need to install all latex packages on your system; [maxima](http://maxima.sourceforge.net/) is a computer algebra system that plays (relatively) nicely with TeX.
 
@@ -10,26 +11,21 @@ This repository is forked from blang's repository in order to add other packages
 
 Setup
 -----
-First, add your local user to docker group:
+
+Get [Docker](http://www.docker.io/) configured on your system, then build the image with
 
 ```shell
-sudo usermod -aG docker YOURUSERNAME
-```
-
-build:
-
-```shell
-docker build -t jgoldfar/maxima-docker .
+docker build -t jgoldfar/maxima-docker -f Dockerfile.debian .
 ```
 
 Usage:
 -----
 
 ```shell
-docker run --rm -i --user="$(id -u):$(id -g)" --net=none -v "$(pwd)":/data jgoldfar/maxima-docker
+docker run --rm -i --user="$(id -u):$(id -g)" --net=none -v "$(pwd)":/data jgoldfar/maxima-docker:debian-latest
 ```
 
-`WORKDIRs` match, mounted to `/data` inside container.
+Your current working directory should be mounted to `/data` inside the running container.
 
 Why should I use this container?
 
