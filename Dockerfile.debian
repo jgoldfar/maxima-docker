@@ -28,7 +28,7 @@ RUN mkdir -p ${MaximaPath} && \
     ./configure --enable-sbcl --prefix=/usr/local --enable-quiet-build && \
     make install && \
     rm -rf ${MaximaPath} && \
-    apt-get -q -y remove python3 autoconf automake make vim git curl \
+    apt-get -q -y remove python3 autoconf automake make vim git curl && \
     apt-get -q -y clean && \
     apt-get -q -y autoclean && \
     rm -rf /var/lib/apt/lists/* /var/log/dpkg.log
