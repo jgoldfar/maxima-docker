@@ -1,0 +1,46 @@
+name: Build and push docker images
+
+on:
+  push:
+    branches:
+      - '*'
+  schedule:
+    - cron: '30 5 * * 3'
+
+# Set env variables
+env:
+  DOCKER_USER: ${{secrets.DOCKER_USER}}
+  DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
+  REPO_NAME: ${{secrets.REPO_NAME}}
+
+jobs:
+  build-and-push:
+    runs-on: 'ubuntu-20.04'
+    strategy:
+      matrix:
+        image_version: ['alpine', 'debian', 'alpine-latex']
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout the commit triggering this job
+        uses: actions/checkout@v2
+
+      - name: Login to Docker
+        run: echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
+
+      - name: Build image for ${{matrix.image_version}}
+        id: build_image
+        run: |
+          docker build -q -f Dockerfile.${{matrix.image_version}} -t $REPO_NAME:${{matrix.image_version}}-$GITHUB_SHA .
+        env:
+          DOCKER_BUILDKIT: 1
+
+      - name: Tag image with git SHA and latest
+        run: |
+          docker tag $REPO_NAME:${{matrix.image_version}}-$GITHUB_SHA $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}-latest
+          docker tag $REPO_NAME:${{matrix.image_version}}-$GITHUB_SHA $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}-$GITHUB_SHA
+
+      - name: Push tagged images to docker
+        if: ${{ (github.event_name == 'push' || github.event_name == 'pull_request') && github.ref_protected }}
+        run: |
+          docker push $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}-$GITHUB_SHA
+          docker push $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}-latest
