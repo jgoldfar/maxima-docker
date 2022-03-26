@@ -1,7 +1,7 @@
 Maxima-on-alpine docker container
 =====
 
-![Docker Pulls](https://img.shields.io/docker/pulls/jgoldfar/maxima-docker.svg)](https://hub.docker.com/r/jgoldfar/maxima-docker/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/jgoldfar/maxima-docker.svg)](https://hub.docker.com/r/jgoldfar/maxima-docker/)
 
 [![Build and push docker images](https://github.com/jgoldfar/maxima-docker/actions/workflows/build.yml/badge.svg)](https://github.com/jgoldfar/maxima-docker/actions/workflows/build.yml)
 
