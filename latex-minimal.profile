@@ -2,13 +2,13 @@
 # It will NOT be updated and reflects only the
 # installation profile at installation time.
 selected_scheme scheme-custom
-TEXDIR /usr/local/texlive/2018
-TEXMFCONFIG ~/Library/texlive/2018/texmf-config
+TEXDIR /usr/local/texlive/2023
+TEXMFCONFIG ~/Library/texlive/2023/texmf-config
 TEXMFHOME ~/Library/texmf
 TEXMFLOCAL /usr/local/texlive/texmf-local
-TEXMFSYSCONFIG /usr/local/texlive/2018/texmf-config
-TEXMFSYSVAR /usr/local/texlive/2018/texmf-var
-TEXMFVAR ~/Library/texlive/2018/texmf-var
+TEXMFSYSCONFIG /usr/local/texlive/2023/texmf-config
+TEXMFSYSVAR /usr/local/texlive/2023/texmf-var
+TEXMFVAR ~/Library/texlive/2023/texmf-var
 collection-basic 1
 collection-latex 1
 instopt_adjustpath 0

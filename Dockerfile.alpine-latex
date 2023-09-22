@@ -1,4 +1,4 @@
-FROM jgoldfar/alpine-sbcl:3.15-latest
+FROM jgoldfar/alpine-sbcl:3.18-upstream
 
 LABEL maintainer="Jonathan Goldfarb <jgoldfar@gmail.com>"
 
@@ -27,9 +27,10 @@ COPY latex-minimal.profile .
 RUN curl -L http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz -o install-tl-unx.tar.gz && \
     tar xzf install-tl-unx.tar.gz && \
     ./install-tl-*/install-tl -profile ./latex-minimal.profile && \
-    rm -rf latex-minimal.profile install-tl-*
-
-ENV PATH="/usr/local/texlive/2022/bin/x86_64-linuxmusl:${PATH}"
-
-RUN apk del build-deps &&\
+    rm -rf latex-minimal.profile install-tl-* && \
+    apk del build-deps && \
     rm -fr /var/cache/apk/*
+
+ENV PATH="/usr/local/texlive/2023/bin/x86_64-linuxmusl:/usr/local/texlive/2023/bin/x86_64-linux:${PATH}"
+
+RUN

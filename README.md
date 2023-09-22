@@ -8,6 +8,7 @@ Maxima-on-alpine docker container
 This container helps with compilation of latex sources without the need to install all latex packages on your system; [maxima](http://maxima.sourceforge.net/) is a computer algebra system that plays (relatively) nicely with TeX.
 
 This repository is forked from blang's repository in order to add other packages needed to run Maxima scripts for a CI setup.
+Minimally maintained, accepts PRs!
 
 Setup
 -----
@@ -31,12 +32,12 @@ Why should I use this container?
 
 -----
 
-- Easy setup
+- Easy setup, small container size
 
 ## Container Descriptions
 
 * `debian` contains a Maxima installation on top of Debian Stretch
 
-* `alpine` contains a Maxima installation on top of Alpine Linux v3.9
+* `alpine` contains a Maxima installation on top of Alpine Linux v3.18
 
-* `alpine-latex` adds a minimal LaTeX installation to `alpine`. The TeX installation scheme is minimal.
+* `alpine-latex` adds a minimal TeX/LaTeX installation to `alpine`.
