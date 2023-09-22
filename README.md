@@ -10,6 +10,13 @@ This container helps with compilation of latex sources without the need to insta
 This repository is forked from blang's repository in order to add other packages needed to run Maxima scripts for a CI setup.
 Minimally maintained, accepts PRs!
 
+> This program is distributed in the hope that it will be useful,
+> but WITHOUT ANY WARRANTY; without even the implied warranty of
+> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+For more information, reach out to the team at [desert.frog.solutions@gmail.com](mailto:desert.frog.solutions@gmail.com) or [desertfrogsolutions.com](https://desertfrogsolutions.com)
+
+
 Setup
 -----
 
