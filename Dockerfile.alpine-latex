@@ -32,5 +32,3 @@ RUN curl -L http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz -
     rm -fr /var/cache/apk/*
 
 ENV PATH="/usr/local/texlive/2023/bin/x86_64-linuxmusl:/usr/local/texlive/2023/bin/x86_64-linux:${PATH}"
-
-RUN
