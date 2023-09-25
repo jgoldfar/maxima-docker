@@ -25,7 +25,7 @@ jobs:
       - name: Checkout the commit triggering this job
         uses: actions/checkout@v4
 
-        - name: Export Cache tokens using the Github runner shell
+      - name: Export Cache tokens using the Github runner shell
         uses: actions/github-script@v6
         with:
           script: |-
