@@ -14,6 +14,7 @@ env:
 
 jobs:
   build-and-push:
+    name: Build and push Maxima image
     strategy:
       fail-fast: false
       matrix:
@@ -51,7 +52,7 @@ jobs:
           -t ${DOCKER_USER}/${REPO_NAME}:${{matrix.image_version}} \
           --cache-from=type=gha \
           --cache-to=type=gha,mode=max \
-          .
+          . || echo '::error file=Dockerfile.${{matrix.image_version}},title=docker::build failed'
 
       - name: Push tagged images to docker
         if: ${{ (github.event_name == 'push' || github.event_name == 'pull_request') && github.ref_protected }}
