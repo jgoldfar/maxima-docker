@@ -24,7 +24,7 @@ RUN git clone https://git.code.sf.net/p/maxima/code ${MaximaPath} && \
 
 COPY latex-minimal.profile .
 
-RUN curl -L https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz -o install-tl-unx.tar.gz && \
+RUN curl -L https://mirrors.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz -o install-tl-unx.tar.gz && \
     tar xzf install-tl-unx.tar.gz && \
     ./install-tl-*/install-tl -profile ./latex-minimal.profile && \
     rm -rf latex-minimal.profile install-tl-* && \
