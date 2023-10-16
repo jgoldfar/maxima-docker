@@ -44,6 +44,7 @@ jobs:
         id: build_image
         env:
           DOCKER_BUILDKIT: 1
+          BUILDKIT_PROGRESS: plain
         run: |
           docker build \
           -f Dockerfile.${{matrix.image_version}} \
