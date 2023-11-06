@@ -10,39 +10,52 @@ on:
 # Set env variables
 env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
-  DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
   REPO_NAME: ${{secrets.REPO_NAME}}
 
 jobs:
   build-and-push:
-    runs-on: 'ubuntu-20.04'
+    name: Build and push Maxima image
     strategy:
       fail-fast: false
       matrix:
         image_version: ['alpine', 'debian', 'alpine-latex']
+        os: ['ubuntu-20.04', 'ubuntu-22.04']
+    runs-on: ${{ matrix.os }}
     steps:
       # https://github.com/actions/checkout
       - name: Checkout the commit triggering this job
         uses: actions/checkout@v4
 
-      - name: Login to Docker
-        run: echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
+      - name: Export Cache tokens using the Github runner shell
+        uses: actions/github-script@v6
+        with:
+          script: |-
+            core.exportVariable("ACTIONS_RUNTIME_TOKEN", process.env["ACTIONS_RUNTIME_TOKEN"])
+            core.exportVariable("ACTIONS_RUNTIME_URL", process.env["ACTIONS_RUNTIME_URL"])
 
-      - name: Build image for ${{matrix.image_version}}
+      # https://github.com/docker/login-action
+      - name: Login to Docker
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKER_USER}}
+          password: ${{secrets.DOCKER_TOKEN}}
+
+      - name: Build image for ${{matrix.image_version}}, tagging with git SHA and latest
         id: build_image
-        run: |
-          docker build -q -f Dockerfile.${{matrix.image_version}} -t ${DOCKER_USER}/$REPO_NAME:${{matrix.image_version}}-$GITHUB_SHA .
         env:
           DOCKER_BUILDKIT: 1
-
-      - name: Tag image with git SHA and latest
+          BUILDKIT_PROGRESS: plain
         run: |
-          docker tag $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}-$GITHUB_SHA $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}-latest
-          docker tag $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}-$GITHUB_SHA $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}
+          docker build \
+          -f Dockerfile.${{matrix.image_version}} \
+          -t ${DOCKER_USER}/${REPO_NAME}:${{matrix.image_version}}-${GITHUB_SHA} \
+          -t ${DOCKER_USER}/${REPO_NAME}:${{matrix.image_version}}-latest \
+          -t ${DOCKER_USER}/${REPO_NAME}:${{matrix.image_version}} \
+          --cache-from=type=gha \
+          --cache-to=type=gha,mode=max \
+          . || echo '::error file=Dockerfile.${{matrix.image_version}},title=docker::build failed'
 
       - name: Push tagged images to docker
         if: ${{ (github.event_name == 'push' || github.event_name == 'pull_request') && github.ref_protected }}
         run: |
-          docker push $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}-$GITHUB_SHA
-          docker push $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}-latest
-          docker push $DOCKER_USER/$REPO_NAME:${{matrix.image_version}}
+          docker push --all-tags $DOCKER_USER/$REPO_NAME
